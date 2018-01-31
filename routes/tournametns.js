@@ -14,6 +14,9 @@ const createTable = (tournament) => {
       matches: 0,
       for: 0,
       against: 0,
+      wins: 0,
+      draws: 0,
+      loses: 0,
     })
   ));
   tournament.matches.forEach((match) => {
@@ -23,12 +26,25 @@ const createTable = (tournament) => {
       player1.points += match.player_1_points;
       player1.for += match.player_1_goals;
       player1.against += match.player_2_goals;
-
+      if (match.player_1_points === 3) {
+        player1.wins += 1;
+      } else if (match.player_1_points === 1) {
+        player1.draws += 1;
+      } else {
+        player1.loses += 1;
+      }
       const player2 = _.find(playerScores, {id: match.player_2_id});
       player2.matches++;
       player2.points += match.player_2_points;
       player2.for += match.player_2_goals;
       player2.against += match.player_1_goals;
+      if (match.player_2_points === 3) {
+        player2.wins += 1;
+      } else if (match.player_2_points === 1) {
+        player2.draws += 1;
+      } else {
+        player2.loses += 1;
+      }
     };
   });
 
@@ -61,7 +77,12 @@ router.post('/save_match', async function (req, res) {
   return res.status(200).json({});
 });
 
+router.post('/join', async function (req, res) {
+    
+});
+
 router.post('/start', async function(req, res, next) {
+
   const {tournament_id: tournamentId} = req.body;
   const tournament = await Db.startTournament(parseInt(tournamentId));
   res.status(200).json({status: 'ok'});
