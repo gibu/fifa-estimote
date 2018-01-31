@@ -1,1 +1,119 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video,button{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;appearance:none}html,body{height:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote::before,blockquote::after{content:'';content:none}q::before,q::after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}html{box-sizing:border-box;outline:none}*{box-sizing:inherit;outline:inherit}*::before,*::after{box-sizing:inherit;outline:inherit}img{box-sizing:content-box}button,input,textarea{font-family:inherit;appearance:none;border-radius:0}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background: #e6e6e6;
+  font-size: 47px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.first-place {
+  background: #36e06f !important;
+}
+
+.second-place {
+  background: rgba(54, 224, 111, .55) !important;
+}
+
+.third-place {
+  background: rgba(54, 224, 111, .3) !important;
+}
+
+.container {
+  margin: 0 140px;
+}
+
+.players_list {
+  width: 100%;
+}
+
+.players_list-inner {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 190px;
+  background: #fff;
+}
+
+.players_list th {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 50px;
+  color: #999;
+}
+
+.players_list td {
+  height: 220px;
+  vertical-align: middle;
+}
+
+.players_list td:first-child .players_list-inner {
+  height: 190px;
+  padding-left: 37px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+.players_list td:last-child .players_list-inner {
+  height: 190px;
+  padding-right: 37px;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.players_list td.is-name .players_list-inner {
+  justify-content: flex-start;
+}
+
+.players_list td.is-wins,
+.players_list td.is-draws,
+.players_list td.is-loses {
+  width: 175px;
+}
+
+.players_list td.is-wins .players_list-inner {
+  font-weight: bold;
+  text-align: center;
+  color: #36e06f;
+  border-left: dashed 1px #999;
+}
+
+.players_list td.is-draws .players_list-inner {
+  font-weight: bold;
+  text-align: center;
+  border-left: dashed 1px #999;
+  border-right: dashed 1px #999;
+}
+
+.players_list td.is-loses .players_list-inner {
+  font-weight: bold;
+  text-align: center;
+  color: #f7574f;
+  border-right: dashed 1px #999;
+}
+
+.players_list td.is-score .players_list-inner {
+  font-size: 109px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.players_list img {
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 46px;
+}
+
+.players_list-name {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
