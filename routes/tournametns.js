@@ -35,16 +35,30 @@ const createTable = (tournament) => {
   playerScores = playerScores.map((ps) => (
     Object.assign({}, ps, {goal_difference: ps.for - ps.against})
   ));
-  return _.orderBy(playerScores, ['points', 'goal_difference'], ['asc', 'asc']);
+  return _.orderBy(playerScores, ['points', 'goal_difference'], ['desc', 'desc']);
 };
 
 router.get('/active', async function(req, res, next) {
-  const tournament = await Db.getActiveTournament();
+  let tournament = await Db.getActiveTournament();
+  const table = createTable(tournament);
+  console.log('Table---', table);
   res.render('active_tournament', { title: 'Active Tournament' });
 });
 
 router.get('/next_match', async function (req, res) {
   res.status(200).json(await Db.getNextMatch())
+});
+
+router.post('/save_match', async function (req, res) {
+  const {player_1_id, player_2_id, player_1_goals, player_2_goals } = req.body;
+  if (_.isNil(player_1_id) || _.isNil(player_2_id) || _.isNil(player_1_goals) || _.isNil(player_2_goals)) {
+    return res.status(400).json({
+      message: 'Missing required params',
+    });
+  };
+  console.log(player_1_id, player_2_id, player_1_goals, player_2_goals);
+  await Db.saveMatch({player_1_id, player_2_id, player_1_goals, player_2_goals});
+  return res.status(200).json({});
 });
 
 router.post('/start', async function(req, res, next) {

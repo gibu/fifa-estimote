@@ -100,6 +100,7 @@ class Db {
       .where('id', playerId)
       .first('*');
   };
+
   static async getNextMatch() {
     const activeTournament = await this.getActiveTournament();
     const match = await db('matches')
@@ -115,11 +116,59 @@ class Db {
       player_2: player2,
     });
   }
+
+  static async canSaveMatch({tournament_id, player_1_id, player_2_id}) {
+    return await !!db('matches')
+      .where({
+        tournament_id,
+        player_1_id,
+        player_2_id,
+        active: false,
+      })
+  }
+
+  static async saveMatch({player_1_id, player_2_id, player_1_goals, player_2_goals}) {
+    const activeTournament = await this.getActiveTournament();
+    if (!(await this.canSaveMatch({
+        tournament_id: activeTournament.id,
+        player_1_id,
+        player_2_id,
+      }))) {
+      throw new Error(Db.errors.cannot_save_match);
+    }
+    let player_1_points;
+    let player_2_points;
+    if (player_1_goals > player_2_goals) {
+      player_1_points = 3;
+      player_2_points = 0;
+    } else if (player_1_goals === player_2_goals) {
+      player_1_points = 1;
+      player_2_points = 1;
+    } else {
+      player_1_points = 0;
+      player_2_points = 3;
+    }
+    return db('matches')
+      .where({
+        tournament_id: activeTournament.id,
+        player_1_id,
+        player_2_id,
+      })
+      .update({
+        player_1_goals,
+        player_2_goals,
+        player_1_points,
+        player_2_points,
+        played: true,
+        updated_at: new Date(),
+      });
+  }
 };
 
 Db.errors = {
   'tournamet_not_found': 'Tournament not found',
   'cannot_start_tournament': 'Cannot start tournamet',
+  'cannot_save_match': 'Cannot save match',
 };
 
 module.exports = Db;
