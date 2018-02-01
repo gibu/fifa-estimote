@@ -1,5 +1,6 @@
 const  express = require('express');
 const _ = require('lodash');
+const pug = require('pug');
 const router = express.Router();
 
 const Db = require('../services/db');
@@ -62,8 +63,15 @@ router.get('/', async function (req, res) {
 router.get('/active', async function(req, res, next) {
   let tournament = await Db.getActiveTournament();
   const table = createTable(tournament);
-  console.log('Table---', table);
   res.render('active_tournament', { title: 'Active Tournament', table });
+});
+
+router.get('/table', async function (req, res) {
+  let tournament = await Db.getActiveTournament();
+  const table = createTable(tournament);
+  const compileFn = pug.compileFile('./views/table.pug');
+  return res.status(200)
+    .json({table: JSON.stringify(compileFn({table}))});
 });
 
 router.get('/next_match', async function (req, res) {

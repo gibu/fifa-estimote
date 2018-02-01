@@ -1,0 +1,28 @@
+table.players_list
+    tr
+        th.is-name Players
+        th.is-wins.is-header Wins
+        th.players_list-part.is-draws.is-header Draws
+        th.players_list-part.is-loses.is-header Loses
+        th.players_list-part.is-points.is-header Points
+    each player, index in table
+        - const placeClass = ['first-place', 'second-place', 'third-place']
+        - const place = placeClass[index]
+        tr
+            td.is-name
+                .players_list-inner.players_list-name
+                    img.players_list-image(src=`/images/${player.nick.toLowerCase()}.jpg` alt="Marcin" width="160" height="160")
+                    = player.nick
+
+            td.is-wins
+                .players_list-inner
+                    = player.wins
+            td.is-draws
+                .players_list-inner
+                    = player.draws
+            td.is-loses
+                .players_list-inner
+                    = player.loses
+            td.is-score
+                .players_list-inner(class=place)
+                    = player.points
