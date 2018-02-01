@@ -110,7 +110,6 @@ class Db {
       .first('*');
 
     const [player1, player2] = [await this.getPlayer(match.player_1_id), await this.getPlayer(match.player_2_id)]
-    console.log('M---', player2);
     return Object.assign({}, match, {
       player_1: player1,
       player_2: player2,

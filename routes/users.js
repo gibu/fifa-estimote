@@ -10,7 +10,7 @@ const formatMatches = (player) => {
     if (match.played) {
       if (match.player_1_points === 3) {
         winner_id = match.player_1_id;
-      } else if (match.player_2_points) {
+      } else if (match.player_2_points === 3) {
         winner_id = match.player_2_id;
       }
     }

@@ -26,6 +26,12 @@ router.get('/table', async function (req, res) {
     .json({table: JSON.stringify(compileFn({table}))});
 });
 
+router.get('/scores', async function (req, res) {
+  const nextMatch = await Db.getNextMatch();
+  console.log('Next---', nextMatch);
+  res.render('scores');
+});
+
 router.get('/next_match', async function (req, res) {
   res.status(200).json(await Db.getNextMatch())
 });
