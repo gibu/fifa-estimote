@@ -1,19 +1,22 @@
 h1
     | Scores
-
-form(onsubmit="saveResults()")
-    | First Player Scores:
-    br
-    br
-    input(type="text" name="player_1_goals"  value=0)
-    br
-    br
-    | Second Player Scores:
-    br
-    br
-    input(type="text" name="player_2_goals" value=0)
-    br
-    br
-    input#submit(type="Submit" value="Save Result")
+= player_1_nick
+| &nbsp;Scores:
+br
+br
+input#player1goals(type="text" name="player_1_goals"  value=0)
+br
+br
+= player_2_nick
+| &nbsp;Scores:
+br
+br
+input#player2goals(type="text" name="player_2_goals" value=0)
+br
+br
+input#submit(type="Submit" value="Save Result" onclick="saveResults()")
+script.
+    var player1Id = #{player_1_id}
+    var player2Id = #{player_2_id}
 script
     include scores.js

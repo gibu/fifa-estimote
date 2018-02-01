@@ -28,8 +28,12 @@ router.get('/table', async function (req, res) {
 
 router.get('/scores', async function (req, res) {
   const nextMatch = await Db.getNextMatch();
-  console.log('Next---', nextMatch);
-  res.render('scores');
+  res.render('scores', {
+    player_1_id: nextMatch.player_1.id,
+    player_2_id: nextMatch.player_2.id,
+    player_1_nick: nextMatch.player_1.nick,
+    player_2_nick: nextMatch.player_2.nick,
+  });
 });
 
 router.get('/next_match', async function (req, res) {
@@ -38,12 +42,12 @@ router.get('/next_match', async function (req, res) {
 
 router.post('/save_match', async function (req, res) {
   const {player_1_id, player_2_id, player_1_goals, player_2_goals } = req.body;
+  console.log(player_1_id, player_2_id, player_1_goals, player_2_goals);
   if (_.isNil(player_1_id) || _.isNil(player_2_id) || _.isNil(player_1_goals) || _.isNil(player_2_goals)) {
     return res.status(400).json({
       message: 'Missing required params',
     });
   };
-  console.log(player_1_id, player_2_id, player_1_goals, player_2_goals);
   await Db.saveMatch({player_1_id, player_2_id, player_1_goals, player_2_goals});
   return res.status(200).json({});
 });
@@ -53,7 +57,6 @@ router.post('/join', async function (req, res) {
 });
 
 router.post('/start', async function(req, res, next) {
-
   const {tournament_id: tournamentId} = req.body;
   const tournament = await Db.startTournament(parseInt(tournamentId));
   res.status(200).json({status: 'ok'});
