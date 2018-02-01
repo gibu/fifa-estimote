@@ -1,17 +1,19 @@
 h1
     | Scores
 
-form
+form(onsubmit="saveResults()")
     | First Player Scores:
     br
     br
-    input(type="text"  value=0)
+    input(type="text" name="player_1_goals"  value=0)
     br
     br
     | Second Player Scores:
     br
     br
-    input(type="text" value=0)
+    input(type="text" name="player_2_goals" value=0)
     br
     br
     input#submit(type="Submit" value="Save Result")
+script
+    include scores.js
