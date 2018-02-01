@@ -59,6 +59,10 @@ body {
   color: #999;
 }
 
+.players_list th.is-name {
+  position: relative;
+}
+
 .players_list td {
   height: 220px;
   vertical-align: middle;
@@ -80,6 +84,12 @@ body {
 
 .players_list td.is-name .players_list-inner {
   justify-content: flex-start;
+}
+
+.players_list td.is-name .players_list-inner img {
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 46px;
 }
 
 .players_list td.is-wins,
@@ -113,12 +123,6 @@ body {
   font-size: 109px;
   font-weight: bold;
   text-align: center;
-}
-
-.players_list img {
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 46px;
 }
 
 .players_list-name {
@@ -199,4 +203,11 @@ body {
 .results-score.is-lose {
   color: #f7574f;
   font-weight: bold;
+}
+
+.players_list-icon {
+  width: 60px;
+  position: absolute;
+  left: 70px;
+  top: 0;
 }
