@@ -169,6 +169,7 @@ class Db {
       .whereRaw(`tournament_id = ? AND (player_1_id = ? OR player_2_id = ?)`, [tournamentId, playerId, playerId])
       .joinRaw('LEFT JOIN players players1 ON matches.player_1_id = players1.id')
       .joinRaw('LEFT JOIN players players2 ON matches.player_2_id = players2.id')
+      .orderBy('sequence', 'ASC')
       .select('matches.*', 'players1.nick AS player_1_nick',  'players2.nick AS player_2_nick');
 
     return query;
