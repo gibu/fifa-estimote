@@ -41,7 +41,7 @@ router.get('/:nick', async function(req, res, next) {
       i++;
     }
   }
-  // console.log('Player--', player);
+  console.log('Player--', player);
   res.render('users_current', { title: req.params.nick, player: player });
 });
 
