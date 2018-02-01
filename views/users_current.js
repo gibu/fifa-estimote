@@ -17,4 +17,4 @@ function refreshProfile(newTableHTML) {
   }
 };
 
-setInterval(fetchCurrentProfile, 5000);
+setInterval(fetchCurrentProfile, 2000);

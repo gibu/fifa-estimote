@@ -17,4 +17,4 @@ function refreshTable(newTableHTML) {
   }
 };
 
-setInterval(fetchCurrentTable, 5000);
+setInterval(fetchCurrentTable, 2000);
