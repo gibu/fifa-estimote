@@ -163,12 +163,47 @@ class Db {
         updated_at: new Date(),
       });
   }
+
+  static async getMatchesForTournamentIdAndPlayerId(tournamentId, playerId) {
+    const query = db('matches')
+      .whereRaw(`tournament_id = ? AND (player_1_id = ? OR player_2_id = ?)`, [tournamentId, playerId, playerId])
+      .joinRaw('LEFT JOIN players players1 ON matches.player_1_id = players1.id')
+      .joinRaw('LEFT JOIN players players2 ON matches.player_2_id = players2.id')
+      .select('matches.*', 'players1.nick AS player_1_nick',  'players2.nick AS player_2_nick');
+
+    return query;
+  }
+
+  static async getPlayerByNick(nick) {
+    const player = await db('players')
+      .whereRaw(`lower(nick) = ?`, [nick.toLowerCase()])
+      .first('*');
+
+    if (!player) {
+      throw Error(Db.errors.player_not_found);
+    }
+    let matches = [];
+    let activeTournament;
+    try {
+      activeTournament = await this.getActiveTournament();
+    } catch (error) {
+      console.log('No active tournamet');
+    }
+
+    if (activeTournament) {
+      matches = await this.getMatchesForTournamentIdAndPlayerId(activeTournament.id, player.id);
+    };
+
+
+    return Object.assign({}, player, {matches});
+  };
 };
 
 Db.errors = {
   'tournamet_not_found': 'Tournament not found',
   'cannot_start_tournament': 'Cannot start tournamet',
   'cannot_save_match': 'Cannot save match',
+  'player_not_found': 'Player not found',
 };
 
 module.exports = Db;

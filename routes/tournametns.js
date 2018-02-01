@@ -54,6 +54,11 @@ const createTable = (tournament) => {
   return _.orderBy(playerScores, ['points', 'goal_difference'], ['desc', 'desc']);
 };
 
+router.get('/', async function (req, res) {
+  res.status(200).json(await Db.getNextMatch());
+  // res.render('tournament_start');
+});
+
 router.get('/active', async function(req, res, next) {
   let tournament = await Db.getActiveTournament();
   const table = createTable(tournament);
@@ -78,7 +83,7 @@ router.post('/save_match', async function (req, res) {
 });
 
 router.post('/join', async function (req, res) {
-    
+
 });
 
 router.post('/start', async function(req, res, next) {
