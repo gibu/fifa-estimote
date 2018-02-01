@@ -1,5 +1,3 @@
-console.log('test');
-
 function fetchCurrentTable() {
   return fetch('/tournaments/table')
     .then((response) => {

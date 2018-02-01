@@ -1,4 +1,6 @@
 const express = require('express');
+const pug = require('pug');
+
 const router = express.Router();
 
 const Db = require('../services/db');
@@ -22,6 +24,30 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/:nick/current', async function(req, res, next) {
+  const player = await Db.getPlayerByNick(req.params.nick);
+  if (!player) {
+    return res.status(404);
+  }
+
+  player.matches = formatMatches(player);
+  player.current_postion = null;
+  if (player.tournament) {
+    const table = createTable(player.tournament);
+    let i = 1;
+    for (const position of table) {
+      if (position.id === player.id) {
+        player.current_postion = i;
+        break;
+      }
+      i++;
+    }
+  }
+  const compileFn = pug.compileFile('./views/player.pug');
+  return res.status(200)
+    .json({player: JSON.stringify(compileFn({player}))});
+});
+
 router.get('/:nick', async function(req, res, next) {
   const player = await Db.getPlayerByNick(req.params.nick);
   if (!player) {
@@ -41,7 +67,6 @@ router.get('/:nick', async function(req, res, next) {
       i++;
     }
   }
-  console.log('Player--', player);
   res.render('users_current', { title: req.params.nick, player: player });
 });
 

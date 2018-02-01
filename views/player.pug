@@ -1,0 +1,33 @@
+- const positionsClasses = ['', 'first-place', 'second-place', 'third-place']
+= player.current_position
+.player-header(class=`${positionsClasses[player.current_postion]}`)
+    img.player-image(src=`/images/${player.nick.toLowerCase()}_profile.jpg` alt="" width="314" height="314")
+
+h1.player-name
+    = player.nick
+
+if player.matches.length > 0
+    ul.results
+        each match in player.matches
+            -
+                const player1Class = player.id === match.player_1_id && 'is-current'
+                const player2Class = player.id === match.player_2_id && 'is-current'
+
+                let resultClass = ''
+
+                if (match.winner_id) {
+                resultClass = match.winner_id === player.id ? 'is-win' : 'is-lose'
+                }
+
+            li.results-item
+                span.results-name(class=`${player1Class}`)
+                    = match.player_1_nick
+                span.results-score(class=`${resultClass}`)
+                    if match.played
+                        = match.player_1_goals
+                        | :
+                        = match.player_2_goals
+                    else
+                        | - : -
+                span.results-name(class=`${player2Class}`)
+                    = match.player_2_nick

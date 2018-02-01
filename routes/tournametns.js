@@ -27,13 +27,17 @@ router.get('/table', async function (req, res) {
 });
 
 router.get('/scores', async function (req, res) {
-  const nextMatch = await Db.getNextMatch();
-  res.render('scores', {
-    player_1_id: nextMatch.player_1.id,
-    player_2_id: nextMatch.player_2.id,
-    player_1_nick: nextMatch.player_1.nick,
-    player_2_nick: nextMatch.player_2.nick,
-  });
+  try {
+    const nextMatch = await Db.getNextMatch();
+    res.render('scores', {
+      player_1_id: nextMatch.player_1.id,
+      player_2_id: nextMatch.player_2.id,
+      player_1_nick: nextMatch.player_1.nick,
+      player_2_nick: nextMatch.player_2.nick,
+    });
+  } catch (error) {
+    res.render('no_next_match');
+  }
 });
 
 router.get('/next_match', async function (req, res) {
