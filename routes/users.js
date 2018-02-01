@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Db = require('../services/db');
+const createTable = require('../utils/createTable');
 
 const formatMatches = (player) => {
   return player.matches.map((match) => {
@@ -27,6 +28,19 @@ router.get('/:nick', async function(req, res, next) {
     return res.status(404);
   }
   player.matches = formatMatches(player);
+  player.current_postion = null;
+  if (player.tournament) {
+    const table = createTable(player.tournament);
+    let i = 1;
+    for (const position of table) {
+      if (position.id === player.id) {
+        player.current_postion = i;
+        break;
+      }
+      i++;
+    }
+  }
+  // console.log('Player--', player);
   res.render('users_current', { title: req.params.nick, player: player });
 });
 

@@ -190,8 +190,9 @@ class Db {
     } catch (error) {
       console.log('No active tournamet');
     }
-
+    // player.tournament = activeTournament;
     if (activeTournament) {
+      player.tournament= await this.getTournametById(activeTournament.id);
       matches = await this.getMatchesForTournamentIdAndPlayerId(activeTournament.id, player.id);
     };
 
