@@ -27,6 +27,7 @@ router.get('/:nick', async function(req, res, next) {
   if (!player) {
     return res.status(404);
   }
+
   player.matches = formatMatches(player);
   player.current_postion = null;
   if (player.tournament) {

@@ -27,6 +27,14 @@ body {
 .container {
   padding-top: 80px;
   margin: 0 140px;
+  padding-top: 80px;
+}
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .players_list {
@@ -84,21 +92,21 @@ body {
   font-weight: bold;
   text-align: center;
   color: #36e06f;
-  border-left: dashed 1px #999;
+  border-left: dashed 1px #e6e6e6;
 }
 
 .players_list td.is-draws .players_list-inner {
   font-weight: bold;
   text-align: center;
-  border-left: dashed 1px #999;
-  border-right: dashed 1px #999;
+  border-left: dashed 1px #e6e6e6;
+  border-right: dashed 1px #e6e6e6;
 }
 
 .players_list td.is-loses .players_list-inner {
   font-weight: bold;
   text-align: center;
   color: #f7574f;
-  border-right: dashed 1px #999;
+  border-right: dashed 1px #e6e6e6;
 }
 
 .players_list td.is-score .players_list-inner {
@@ -118,4 +126,77 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+.player {
+  width: 590px;
+  padding-bottom: 40px;
+  margin: 0 auto;
+  border-radius: 24px;
+  box-shadow: 0 0 10px #ccc;
+  background: #fff;
+  overflow: hidden;
+}
+
+.player-header {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ccc;
+}
+
+.player-image {
+  border-radius: 50%;
+}
+
+.player-name {
+  margin-bottom: 30px;
+  padding-top: 30px;
+  font-size: 47px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.results {
+  margin: 0 40px;
+  font-size: 30px;
+}
+
+.results-item {
+  display: flex;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: dashed 1px #e6e6e6;
+}
+
+.results-item:last-child {
+  margin: 0;
+}
+
+.results-name {
+  flex-basis: 260px;
+}
+
+.results-name:last-child {
+  text-align: right;
+}
+
+.results-name.is-current {
+  font-weight: bold;
+}
+
+.results-score {
+  flex-basis: 100px;
+  text-align: center;
+}
+
+.results-score.is-win {
+  color: #36e06f;
+  font-weight: bold;
+}
+
+.results-score.is-lose {
+  color: #f7574f;
+  font-weight: bold;
 }
