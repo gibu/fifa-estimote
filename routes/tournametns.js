@@ -63,7 +63,7 @@ router.get('/active', async function(req, res, next) {
   let tournament = await Db.getActiveTournament();
   const table = createTable(tournament);
   console.log('Table---', table);
-  res.render('active_tournament', { title: 'Active Tournament' });
+  res.render('active_tournament', { title: 'Active Tournament', table });
 });
 
 router.get('/next_match', async function (req, res) {

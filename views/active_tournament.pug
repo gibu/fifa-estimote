@@ -1,71 +1,34 @@
 extends layout
 
 block content
-  .container
-    table.players_list
-      tr
-        th.is-name Players
-        th.is-wins.is-header Wins
-        th.players_list-part.is-draws.is-header Draws
-        th.players_list-part.is-loses.is-header Loses
-        th.players_list-part.is-points.is-header Points
+  if table
+    .container
+      table.players_list
+        tr
+          th.is-name Players
+          th.is-wins.is-header Wins
+          th.players_list-part.is-draws.is-header Draws
+          th.players_list-part.is-loses.is-header Loses
+          th.players_list-part.is-points.is-header Points
         
-      tr
-        td.is-name
-          .players_list-inner.players_list-name
-            img.players_list-image(src="/images/marcin.jpg" alt="Marcin" width="160" height="160")
-            | Marcin
-            
-        td.is-wins
-          .players_list-inner 30
-        td.is-draws
-          .players_list-inner 30
-        td.is-loses
-          .players_list-inner 30
-        td.is-score
-          .players_list-inner.first-place 65
-        
-      tr
-        td.is-name
-          .players_list-inner.players_list-name
-            img.players_list-image(src="/images/magda.jpg" alt="Magda" width="160" height="160")
-            | Magda
-            
-        td.is-wins
-          .players_list-inner 30
-        td.is-draws
-          .players_list-inner 30
-        td.is-loses
-          .players_list-inner 30
-        td.is-score
-          .players_list-inner.second-place 65
-        
-      tr
-        td.is-name
-          .players_list-inner.players_list-name
-            img.players_list-image(src="/images/mateusz.jpg" alt="Mateusz" width="160" height="160")
-            | Mateusz
-            
-        td.is-wins
-          .players_list-inner 30
-        td.is-draws
-          .players_list-inner 30
-        td.is-loses
-          .players_list-inner 30
-        td.is-score
-          .players_list-inner.third-place 65
-        
-      tr
-        td.is-name
-          .players_list-inner.players_list-name
-            img.players_list-image(src="/images/filip.jpg" alt="Filip" width="160" height="160")
-            | Filip
-            
-        td.is-wins
-          .players_list-inner 30
-        td.is-draws
-          .players_list-inner 30
-        td.is-loses
-          .players_list-inner 30
-        td.is-score
-          .players_list-inner 65
+        each player, index in table
+          - const placeClass = ['first-place', 'second-place', 'third-place']
+          - const place = placeClass[index]
+          tr
+            td.is-name
+              .players_list-inner.players_list-name
+                img.players_list-image(src=`/images/${player.nick.toLowerCase()}.jpg` alt="Marcin" width="160" height="160")
+                = player.nick
+                
+            td.is-wins
+              .players_list-inner
+                = player.wins
+            td.is-draws
+              .players_list-inner
+                = player.draws
+            td.is-loses
+              .players_list-inner
+                = player.loses
+            td.is-score
+              .players_list-inner(class=place)
+                = player.points
