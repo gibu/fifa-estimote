@@ -19,7 +19,7 @@ const parseConnection = (connectionString) => {
   };
 };
 
-const connection = parseConnection('postgres://yewdbyfndddgja:886977e1be8a9a354bb1da0fcdeb24dc2a8586758b25cb920fa78f8e412c280a@ec2-54-247-101-191.eu-west-1.compute.amazonaws.com:5432/da7qnnkde2pks8')
+const connection = parseConnection('')
 connection.ssl = true;
 
 const db = require('knex')({
